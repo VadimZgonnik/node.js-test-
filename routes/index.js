@@ -23,7 +23,6 @@ router.post('/insert', function(req, res, next){
 
    res.redirect('/');
 });
-
 router.post('/update', function(req, res, next) {
     let id =req.body.id;
 

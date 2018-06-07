@@ -1,17 +1,15 @@
 $('#logBtn').on('click', (e) => {
-    // e.preventDefault();
-    // console.log(registrationEmail.value, 'email')
-    // console.log(registrationPass.value, 'pass');
-    // console.log(e.target.serializeArray(), 'confPass');
-    fetch('/users/', {
+    // console.log($('#inputEmailSingIn').val(), 'email')
+    // console.log($('#inputPasswordSingIn').val(), 'pass');
+    fetch('/users/login', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: $('#inputEmailSingUp').val(),
-            pass: $('#inputPasswordSingUp').val(),
+            email: $('#inputEmailSingIn').val(),
+            pass: $('#inputPasswordSingIn').val(),
         }),
         dataType: 'json',
     })

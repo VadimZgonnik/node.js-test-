@@ -1,4 +1,17 @@
-let {User} = require('../modeles');
+const {User} = require('../modeles');
+const {hashPass} = require('../untils/bcrypt');
+const bcrypt = require('bcrypt');
+const {auth} = require('../servises/userServis');
+
+exports.login = function (req, res, next) {
+    auth(req.body.email, req.body.pass)
+        .then(function (user) {
+            req.session.user = user;
+            return  res.json({user});
+        })
+        .catch(next)
+};
+
 exports.list = function (req, res, next) {
     User.find()
         .then(function (doc) {
@@ -6,23 +19,27 @@ exports.list = function (req, res, next) {
         })
         .catch(next);
 };
-exports.insert = function(req, res, next){
+exports.insert = function (req, res, next) {
     let item = {
         email: req.body.email,
-        password: req.body.pass,
+        password: hashPass(req.body.pass),
         confirmPassword: req.body.confirmPass
     };
-    console.log(item, '<<,')
-    let doc = new User(item);
-    doc.save().then((user) => {
-        res.json({user});
-    }).catch(next);
+    console.log(item);
+    let user = new User(item);
+    user
+        .save()
+        .then((user) => {
+            res.json({user});
+        })
+        .catch(next);
 };
-exports.update = function(req, res, next) {
-    let id =req.body.id;
+
+exports.update = function (req, res, next) {
+    let id = req.body.id;
 
     User.findOne(id, function (err, doc) {
-        if(err){
+        if (err) {
             return next(err)
         }
         doc.email = req.body.email;

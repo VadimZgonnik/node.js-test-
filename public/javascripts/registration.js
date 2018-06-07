@@ -11,7 +11,7 @@ $('#regBtn').on('click', (e) => {
         },
         body: JSON.stringify({
             email: $('#inputEmailSingUp').val(),
-            pass: $('#inputPasswordSingUp').val(),
+            pass:  $('#inputPasswordSingUp').val(),
             confirmPass: $('#inputConfirmPasswordSingUp').val(),
         }),
         dataType: 'json',

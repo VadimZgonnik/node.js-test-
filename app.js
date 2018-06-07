@@ -31,7 +31,7 @@ app.use(session({
     // Использовать монго хранилище
 }));
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.png')))
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,6 +45,7 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
     const err = new Error('404');
     err.status = 404;
+    err.stack = null;
   next(err);
 });
 
