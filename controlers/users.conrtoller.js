@@ -2,11 +2,19 @@ const {User} = require('../modeles');
 const {hashPass} = require('../untils/bcrypt');
 const {auth} = require('../servises/userServis');
 
+exports.profile = function (req, res, next) {
+    if(!req.session.user) {
+        return res.status(403).send('403')
+    }
+    return res.json({hi: 'hi profile'})
+}
 exports.login = function (req, res, next) {
     auth(req.body.email, req.body.pass)
         .then(function (user) {
-            console.log(user.toObject(), 'login');
-            req.session.user = user.toObject();
+            // console.log(user.toObject(), 'login');
+            // console.log(user.id, 'id');
+            // req.session.user = user.toObject();
+            req.session.user = user;
             // res.redirect('/')
             return  res.json({user});
         })
@@ -14,7 +22,7 @@ exports.login = function (req, res, next) {
 };
 
 exports.list = function (req, res, next) {
-    console.log(req.session)
+    console.log(req.session);
     User.find()
         .then(function (doc) {
             res.render('index', {items: doc});

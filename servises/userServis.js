@@ -6,7 +6,7 @@ exports.auth = function (email, pass) {
         User.findOne({email}, function (err, user) {
             if(!user) return reject(new Error('User not found'));
 
-            if(!validPass) return reject(new Error('Password not correct'));
+            if(!validPass(pass, user.password)) return reject(new Error('Password not correct'));
             resolve(user);
         });
     })
