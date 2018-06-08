@@ -1,18 +1,20 @@
 const {User} = require('../modeles');
 const {hashPass} = require('../untils/bcrypt');
-const bcrypt = require('bcrypt');
 const {auth} = require('../servises/userServis');
 
 exports.login = function (req, res, next) {
     auth(req.body.email, req.body.pass)
         .then(function (user) {
-            req.session.user = user;
+            console.log(user.toObject(), 'login');
+            req.session.user = user.toObject();
+            // res.redirect('/')
             return  res.json({user});
         })
         .catch(next)
 };
 
 exports.list = function (req, res, next) {
+    console.log(req.session)
     User.find()
         .then(function (doc) {
             res.render('index', {items: doc});

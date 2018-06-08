@@ -1,6 +1,4 @@
 $('#logBtn').on('click', (e) => {
-    // console.log($('#inputEmailSingIn').val(), 'email')
-    // console.log($('#inputPasswordSingIn').val(), 'pass');
     fetch('/users/login', {
         method: 'POST',
         headers: {

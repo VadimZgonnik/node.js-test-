@@ -1,8 +1,4 @@
 $('#regBtn').on('click', (e) => {
-    // e.preventDefault();
-    // console.log(registrationEmail.value, 'email')
-    // console.log(registrationPass.value, 'pass');
-    // console.log(e.target.serializeArray(), 'confPass');
     fetch('/users/insert', {
         method: 'POST',
         headers: {
